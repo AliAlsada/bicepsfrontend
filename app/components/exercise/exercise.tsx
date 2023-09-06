@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type ExerciseProps = {
     name: string,
     muscle: string,
+    clear: boolean,
 }
 
 
 
-export const Exercise: React.FC<ExerciseProps> = ({name, muscle}) => {
+export const Exercise: React.FC<ExerciseProps> = ({name, muscle, clear}) => {
 
     const [isActive, setIsActive] = useState(false);
 
@@ -15,6 +16,10 @@ export const Exercise: React.FC<ExerciseProps> = ({name, muscle}) => {
         setIsActive(!isActive);
     };
 
+    useEffect(() => {
+        if (clear)
+            setIsActive(false);
+    }, [clear]);
 
     return(
         <div className={`rounded-xl ${ isActive ? 'bg-violet-700 hover:bg-violet-800' : 'bg-gray-700 hover:bg-gray-800'}`}

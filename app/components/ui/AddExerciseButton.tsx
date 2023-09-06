@@ -8,6 +8,7 @@ import { Exercise } from "../exercise/exercise"
 
 //useState
 type Exercise = {
+    id: string;
     name: string;
     muscle: string;
 }
@@ -16,8 +17,11 @@ type Exercise = {
 export const AddExerciseButton = () => {
 
     const [exercises, setExercises] = useState<Exercise[]>([]);
-    const [close, setClose] = useState<boolean>(false);
+    const [clear, setClear] = useState<boolean>(false);
 
+    const clearActiveExercises = (reset:boolean) => {
+        setClear(reset);
+    };
 
     useEffect(() => {
         const exercisesList = async () => {
@@ -27,15 +31,10 @@ export const AddExerciseButton = () => {
         exercisesList();
     }, [])
 
-    useEffect(() => {
-        
-    }, [close])
-
-    
 
     return (<>
         {/* The button to open modal */}
-        <label htmlFor="my_modal_6" className="btn rounded-md w-44 ">ADD EXERCISE</label>
+        <label htmlFor="my_modal_6" className="btn rounded-md w-44" onClick={() => clearActiveExercises(false)}>ADD EXERCISE</label>
 
         {/* Put this part before </body> tag */}
         <input type="checkbox" id="my_modal_6" className="modal-toggle" />
@@ -52,18 +51,18 @@ export const AddExerciseButton = () => {
 
                 <ul>
                     {exercises.map(exercise => (
-                        <li className="m-4">{<Exercise name={exercise.name} muscle={exercise.muscle}/>} </li>
+                        <li key={exercise.id} className="m-4">{<Exercise name={exercise.name} muscle={exercise.muscle} clear={clear}/>} </li>
                     ))}
                 </ul>
 
 
                 <div className="flex gap-5">
                     <div className="modal-action">
-                        <label htmlFor="my_modal_6" className="btn" onClick={() => setClose(true)}>Close!</label>
+                        <label htmlFor="my_modal_6" className="btn" onClick={() => clearActiveExercises(true)}>Close!</label>
                     </div>
 
                     <div className="modal-action">
-                        <label htmlFor="my_modal_6" className="btn">Add</label>
+                        <label htmlFor="my_modal_6" className="btn" onClick={() => clearActiveExercises(true)}>Add</label>
                     </div>
                 </div>
             </div>
