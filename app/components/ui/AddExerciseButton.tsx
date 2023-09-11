@@ -4,6 +4,8 @@
 import { getExercises } from "@/app/services/api/exercises";
 import { useEffect, useState } from "react"
 import { Exercise } from "../exercise/exercise"
+import { Button } from "./buttons/Button";
+import { ExerciseFilter } from "../exercise/ExerciseFliter";
 
 
 //useState
@@ -19,7 +21,12 @@ export const AddExerciseButton = () => {
     const [exercises, setExercises] = useState<Exercise[]>([]);
     const [clear, setClear] = useState<boolean>(false);
 
-    const clearActiveExercises = (reset:boolean) => {
+    /**
+     * this method job is to uncheck the chosen exercises after the user closes the exercises list tap
+     * by changing the state of the "clear" when the user clicks on "close"
+     * also it will change the state to false, when the user tryies to add an exercise to his workout
+     */
+    const clearActiveExercises = (reset: boolean) => {
         setClear(reset);
     };
 
@@ -42,16 +49,13 @@ export const AddExerciseButton = () => {
             <div className="modal-box">
                 <h3 className="font-bold text-lg text-center">Exercises</h3>
 
-                <div className="flex justify-center join mt-7">
-                    <input className="join-item btn" type="radio" name="options" aria-label="All"/>
-                    <input className="join-item btn" type="radio" name="options" aria-label="barbell" />
-                    <input className="join-item btn" type="radio" name="options" aria-label="dumbbels" />
-                    <input className="join-item btn" type="radio" name="options" aria-label="free weight" />
-                </div>
+
+                {/* give this component a list of the items that we want to filter */}
+                <ExerciseFilter />
 
                 <ul>
                     {exercises.map(exercise => (
-                        <li key={exercise.id} className="m-4">{<Exercise name={exercise.name} muscle={exercise.muscle} clear={clear}/>} </li>
+                        <li key={exercise.id} className="m-4">{<Exercise name={exercise.name} muscle={exercise.muscle} clear={clear} />} </li>
                     ))}
                 </ul>
 
@@ -64,6 +68,7 @@ export const AddExerciseButton = () => {
                     <div className="modal-action">
                         <label htmlFor="my_modal_6" className="btn" onClick={() => clearActiveExercises(true)}>Add</label>
                     </div>
+
                 </div>
             </div>
         </div>
