@@ -2,7 +2,11 @@ import { useState } from "react";
 import { Button } from "../ui/buttons/Button"
 
 
-export const ExerciseFilter = ({ }) => {
+type ExerciseFilterProps = {
+    variationsList: string[];
+}
+
+export const ExerciseFilter: React.FC<ExerciseFilterProps> = ({ variationsList }) => {
 
     const [activeButton, setActiveButton] = useState('ALL'); // Initially set the active button to 'ALL'
 
@@ -10,26 +14,26 @@ export const ExerciseFilter = ({ }) => {
         setActiveButton(buttonText);
     };
 
+
+
+    const lastIndex = variationsList.length - 1;
+
+    const variationsListButtons = variationsList.map((variation, index) =>
+
+        <Button
+            variant={activeButton === variation ? 'active' : 'default'}
+            size='default'
+            className={!index ? 'rounded-r-none' : index === lastIndex ? 'rounded-l-none' : 'rounded-none'}
+            text={variation}
+            onClick={() => handleButtonClick(variation)}
+        />
+    );
+
     return (
+
         <div className="flex justify-center join mt-7">
-            <Button
-                variant={activeButton === 'ALL' ? 'active' : 'default'}
-                size='default'
-                className='rounded-r-none'
-                text="ALL" 
-                onClick={()=>handleButtonClick('ALL')}
-                />
-
-            <Button
-            variant={activeButton === 'BARBELL' ? 'active' : 'default'} 
-            size='default' 
-            className='rounded-none' 
-            text="BARBELL" 
-            onClick={()=>handleButtonClick('BARBELL')}
-            />
-            {/* <Button variant='default' size='default' className='rounded-none' text="DUMBBELS" />
-            <Button variant='default' size='default' className='rounded-l-none' text="FREE WEIGHT" /> */}
+            <ul>{variationsListButtons}</ul>
         </div>
-    )
 
+    )
 }

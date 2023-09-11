@@ -15,6 +15,9 @@ type Exercise = {
     muscle: string;
 }
 
+//the list of the exercises variations
+const variationsList = ["ALL", "BARBELL", "DUMBBELS", "FREE WEIGHT"];
+
 
 export const AddExerciseButton = () => {
 
@@ -39,6 +42,8 @@ export const AddExerciseButton = () => {
     }, [])
 
 
+
+
     return (<>
         {/* The button to open modal */}
         <label htmlFor="my_modal_6" className="btn rounded-md w-44" onClick={() => clearActiveExercises(false)}>ADD EXERCISE</label>
@@ -51,7 +56,7 @@ export const AddExerciseButton = () => {
 
 
                 {/* give this component a list of the items that we want to filter */}
-                <ExerciseFilter />
+                <ExerciseFilter variationsList={variationsList}/>
 
                 <ul>
                     {exercises.map(exercise => (
