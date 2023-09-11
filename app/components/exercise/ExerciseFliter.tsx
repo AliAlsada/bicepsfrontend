@@ -14,8 +14,6 @@ export const ExerciseFilter: React.FC<ExerciseFilterProps> = ({ variationsList }
         setActiveButton(buttonText);
     };
 
-
-
     const lastIndex = variationsList.length - 1;
 
     const variationsListButtons = variationsList.map((variation, index) =>
@@ -26,6 +24,7 @@ export const ExerciseFilter: React.FC<ExerciseFilterProps> = ({ variationsList }
             className={!index ? 'rounded-r-none' : index === lastIndex ? 'rounded-l-none' : 'rounded-none'}
             text={variation}
             onClick={() => handleButtonClick(variation)}
+            key={index}
         />
     );
 
