@@ -3,8 +3,7 @@
 
 import { getExercises } from "@/app/services/api/exercises";
 import { useEffect, useState } from "react"
-import { Exercise } from "../exercise/exercise"
-import { Button } from "./buttons/Button";
+import { Exercise } from "../exercise/Exercise"
 import { ExerciseFilter } from "../exercise/ExerciseFliter";
 
 
@@ -42,28 +41,39 @@ export const AddExerciseButton = () => {
     }, [])
 
 
-
-
     return (<>
         {/* The button to open modal */}
-        <label htmlFor="my_modal_6" className="btn rounded-md w-44" onClick={() => clearActiveExercises(false)}>ADD EXERCISE</label>
+        <label htmlFor="my_modal_6" className="btn rounded-md w-full" onClick={() => clearActiveExercises(false)}>ADD EXERCISE</label>
 
         {/* Put this part before </body> tag */}
         <input type="checkbox" id="my_modal_6" className="modal-toggle" />
+
         <div className="modal">
-            <div className="modal-box">
+
+            <div className="relative modal-box h-4/6">
+
+                <div className="fixed top-0 left-0 right-2">
+                    <div className="modal-action">
+                        <label
+                            htmlFor="my_modal_6"
+                            className="btn btn-sm btn-circle btn-ghost"
+                            onClick={() => clearActiveExercises(true)}>
+                            x
+                        </label>
+                    </div>
+
+                </div>
+
                 <h3 className="font-bold text-lg text-center">Exercises</h3>
 
+                <ExerciseFilter variationsList={variationsList} />
 
-                {/* give this component a list of the items that we want to filter */}
-                <ExerciseFilter variationsList={variationsList}/>
 
                 <ul>
                     {exercises.map(exercise => (
                         <li key={exercise.id} className="m-4">{<Exercise name={exercise.name} muscle={exercise.muscle} clear={clear} />} </li>
                     ))}
                 </ul>
-
 
                 <div className="flex gap-5">
                     <div className="modal-action">

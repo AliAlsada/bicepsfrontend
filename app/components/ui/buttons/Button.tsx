@@ -9,7 +9,6 @@ type ButtonProps = {
     className: any,
     text: any,
     onClick: any,
-
 }
 
 const buttonVariants = cva(

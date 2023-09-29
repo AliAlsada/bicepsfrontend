@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import {Set} from "./components/Set"
+
 
 export default function Home() {
   return (
@@ -110,7 +110,6 @@ export default function Home() {
         </a>
       </div> */}
 
-        <Set/>
     </main>
   )
 }
